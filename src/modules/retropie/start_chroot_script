@@ -15,19 +15,19 @@
 set -Ee
 
 # shellcheck disable=SC1091
-source /common.sh
-install_cleanup_trap
+#source /common.sh
+#install_cleanup_trap
 
 # Module only Variables
 SR_BUILD_INSTALL_SH="/home/${BASE_USER}/sonar/tools/install.sh"
 SR_BUILD_PACKAGE_FILE="/tmp/sr_packages.lst"
 
-echo_green "Installing sonar ..."
+echo_green "Installing RetroPie ..."
 
 ## Force apt update
-apt-get update
+#apt-get update
 ## Make sure 'git' is installed!
-check_install_pkgs git
+#check_install_pkgs git
 
 ## Step 1: Move to Home Dir as WorkingDirectoy
 pushd "/home/${BASE_USER}" &> /dev/null || exit 1
