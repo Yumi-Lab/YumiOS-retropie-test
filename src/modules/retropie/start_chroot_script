@@ -12,15 +12,15 @@
 # shellcheck enable=requires-variable-braces
 
 # Error handling
-set -Ee
+#set -Ee
 
 # shellcheck disable=SC1091
 #source /common.sh
 #install_cleanup_trap
 
 # Module only Variables
-SR_BUILD_INSTALL_SH="/home/${BASE_USER}/sonar/tools/install.sh"
-SR_BUILD_PACKAGE_FILE="/tmp/sr_packages.lst"
+#SR_BUILD_INSTALL_SH="/home/${BASE_USER}/sonar/tools/install.sh"
+#SR_BUILD_PACKAGE_FILE="/tmp/sr_packages.lst"
 
 echo_green "Installing RetroPie ..."
 
@@ -33,8 +33,14 @@ echo_green "Installing RetroPie ..."
 pushd "/home/${BASE_USER}" &> /dev/null || exit 1
 
 ## Step 2: clone retropie repo
-echo_green "Clone retropie repository ..."
-gitclone https://github.com/Yumi-Lab/Retropie-smartpi.git
+# Cloning the Retropie-smartpi repository
+echo "Cloning the Retropie-smartpi repository..."
+if git clone https://github.com/Yumi-Lab/Retropie-smartpi.git; then
+    echo "Repository cloned successfully."
+else
+    echo "Failed to clone repository."
+    #exit 1
+fi
 
 ## Step 3: Move to Retropie as working directory
 pushd "/home/${BASE_USER}/Retropie-smartpi" &> /dev/null || exit 1
