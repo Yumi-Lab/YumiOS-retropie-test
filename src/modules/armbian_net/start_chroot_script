@@ -23,51 +23,6 @@
 source /common.sh
 install_cleanup_trap
 
-
-## Step 1: Install files
-unpack filesystem/root / root
-## END
-
-## Step 1.1: Install Depedencies
-### Needed to patch 'network_configurator'
-# shellcheck disable=SC2086
-check_install_pkgs ${ARMBIAN_NET_DEPS}
-
-## Step 2: remove original template
-if [[ -f "${ARMBIAN_NET_FIRSTRUN_FILE}" ]]; then
-    sudo rm -rf "${ARMBIAN_NET_FIRSTRUN_FILE}"
-fi
-## END
-
-## Step 3: Disable first run service
-systemctl_if_exists disable armbian-firstrun-config.service
-## END
-
-## Step 4: Copy original script to /usr/local/bin/network-configurator
-if [[ -f "${ARMBIAN_NET_FIRSTRUN_SCRIPT}" ]]; then
-    sudo cp -p "${ARMBIAN_NET_FIRSTRUN_SCRIPT}" "${ARMBIAN_NET_NC_PATH}"
-fi
-## END
-
-## Step 5: patch /usr/local/bin/network-configurator
-if [[ -f "${ARMBIAN_NET_NC_PATH}" ]]; then
-    ### Substep 1: replace any amrbian_first_run.txt with network_config.txt
-    sed -i 's|armbian_first_run.txt|network_config.txt|g' "${ARMBIAN_NET_NC_PATH}"
-    ### Substep 2: replace any FR* Variable name with NC*
-    sed -i 's|FR|NC|g' "${ARMBIAN_NET_NC_PATH}"
-    ### Supstep 3: Rename function
-    sed -i 's|do_firstrun_automated_user_configuration|do_network_configuration|g' "${ARMBIAN_NET_NC_PATH}"
-    ### Substep 4: Add a patch note
-    sed -i '8 i \\n\# This is a patched version of armbian-firstrun-config for MainsailOS' "${ARMBIAN_NET_NC_PATH}"
-    sed -i '10 i # Original located at /usr/lib/armbian/armbian-firstrun-config' "${ARMBIAN_NET_NC_PATH}"
-    sed -i '11 i # Changes made by https:\/\/github.com/mainsail-crew' "${ARMBIAN_NET_NC_PATH}"
-fi
-## END
-
-## Step 6: Enable systemd service
-systemctl_if_exists enable network-configurator.service
-## END
-
 echo_green "Installing RetroPie ..."
 
 ## Force apt update
@@ -80,18 +35,18 @@ pushd "/home/pi" &> /dev/null || exit 1
 
 ## Step 2: clone retropie repo
 echo_green "Clone retropie repository ..."
-git clone https://github.com/Yumi-Lab/Retropie-smartpi.git
+#git clone https://github.com/Yumi-Lab/Retropie-smartpi.git
 
 ## Step 3: Move to Retropie as working directory
-pushd "/home/pi/Retropie-smartpi" &> /dev/null || exit 1
+#pushd "/home/pi/Retropie-smartpi" &> /dev/null || exit 1
 
 ## Step 4: Run retropie install routine
-echo_green "Launch RetroPie install routine ..."
-sudo ./install.sh
-cd ..
+#echo_green "Launch RetroPie install routine ..."
+#sudo ./install.sh
+#cd ..
 
 ## Step 5: Leave RetroPie
-popd &> /dev/null || exit 1
+#popd &> /dev/null || exit 1
 
 ## Step 6: clean packages.lst file
 #rm -f "${SR_BUILD_PACKAGE_FILE}"
