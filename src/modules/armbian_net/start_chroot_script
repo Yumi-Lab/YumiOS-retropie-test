@@ -35,15 +35,15 @@ pushd "/home/pi" &> /dev/null || exit 1
 
 ## Step 2: clone retropie repo
 echo_green "Clone retropie repository ..."
-#git clone https://github.com/Yumi-Lab/Retropie-smartpi.git
+git clone https://github.com/Yumi-Lab/Retropie-smartpi.git
 
 ## Step 3: Move to Retropie as working directory
-#pushd "/home/pi/Retropie-smartpi" &> /dev/null || exit 1
+cd Retropie-smartpi
 
 ## Step 4: Run retropie install routine
-#echo_green "Launch RetroPie install routine ..."
-#sudo ./install.sh
-#cd ..
+echo_green "Launch RetroPie install routine ..."
+sudo ./install.sh
+cd ..
 
 ## Step 5: Leave RetroPie
 #popd &> /dev/null || exit 1
