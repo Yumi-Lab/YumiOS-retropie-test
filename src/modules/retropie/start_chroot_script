@@ -32,7 +32,7 @@ pushd "/home/${BASE_USER}" &> /dev/null || exit 1
 
 ## Step 2: Clone the Retropie repository
 echo "Cloning the Retropie-smartpi repository..."
-if git clone https://github.com/Yumi-Lab/Retropie-smartpi.git; then
+if git clone https://github.com/xtrack33/Retropie-smartpi.git; then
     echo "Repository cloned successfully."
 else
     echo "Failed to clone repository."
@@ -55,14 +55,3 @@ popd &> /dev/null || exit 1
 
 ## End of installation
 echo_green "Installing RetroPie ... DONE!"
-
-# Vérifier si le répertoire est utilisé
-lsof +D /home/runner/work/YumiOS-retropie-test/YumiOS-retropie-test/repository/src/workspace/mount/dev
-
-# Démonter les sous-systèmes de fichiers
-sudo umount /home/runner/work/YumiOS-retropie-test/YumiOS-retropie-test/repository/src/workspace/mount/dev/pts
-sudo umount /home/runner/work/YumiOS-retropie-test/YumiOS-retropie-test/repository/src/workspace/mount/proc
-sudo umount /home/runner/work/YumiOS-retropie-test/YumiOS-retropie-test/repository/src/workspace/mount/var/cache/apt
-
-# Finalement, démonter le système de fichiers principal
-sudo umount /home/runner/work/YumiOS-retropie-test/YumiOS-retropie-test/repository/src/workspace/mount/dev
